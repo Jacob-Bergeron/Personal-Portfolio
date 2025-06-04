@@ -1,25 +1,46 @@
-import { Box, Flex, Text, Button, Container } from '@mantine/core';
+import { Box, Flex, Text, Container, Title } from '@mantine/core';
+import Project from './Project';
 
 const ProjectSection = () => (
-  <Box
-    component="section"
-    p="md"
-    style={{
-      backgroundColor: '#f0f0f0',
-      color: 'black',
-      width: '100%',
-    }}
-  >
-    <Flex direction="column" align="center">
-      <Text fw={700} size="xl" mb="md">My Projects</Text>
-      <Text size="md" mb="lg">
-        Here are some of the projects I've worked on recently.
-      </Text>
-      <Button component="a" href="#projects" color="indigo">
-        View Projects
-      </Button>
-    </Flex>
-  </Box>
+    <Box
+        p="md"
+        style={{
+            backgroundColor: '#f0f0f0',
+            color: 'black',
+            paddingTop: '2rem',
+            paddingLeft: '10rem',
+        }}
+    >
+
+        {/* Title */}
+        <Flex align="center" style={{ paddingBottom: '0.5rem' }}>
+            <Title order={1}>Projects</Title>
+        </Flex>
+
+        <Container>
+            <Flex gap="md" direction="column" >
+                <Project
+                    title="Project 1"
+                    points={['Bullet point 1',
+                        'Bullet point 2',
+                        'Bullet point 3',
+                        'Bullet point 4'
+                    ]}
+                    image="https://via.placeholder.com/150"
+                />
+                <Project
+                    title="Project 2"
+                    points={['Bullet point 1',
+                        'Bullet point 2',
+                        'Bullet point 3',
+                        'Bullet point 4'
+                    ]}
+                    image="https://via.placeholder.com/150"
+                />
+            </Flex>
+        </Container>
+
+    </Box>
 );
 
-export default ProjectSection;
+export default ProjectSection; 

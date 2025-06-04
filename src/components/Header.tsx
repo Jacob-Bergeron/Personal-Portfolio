@@ -10,7 +10,7 @@ const Header = () => (
       width: '100%',
     }}
   >
-    <Flex justify="start" align="center">
+    <Flex justify="start" align="center" style={{ paddingLeft: '2rem' }}>
       <Text fw={700}>JB</Text>
 
       <Flex justify="" align="center" gap="lg" ml="auto">

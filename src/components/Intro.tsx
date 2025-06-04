@@ -1,15 +1,24 @@
-import { Title, Text, Button, Stack } from '@mantine/core';
+import { Title, Text, Stack, Flex, Box } from '@mantine/core';
 
 const Intro = () => (
-  <Stack align="center"  my="xl" >
-    <Title order={1}>Hey, I'm Jacob Bergeron</Title>
-    <Text size="lg" >
-      Undergraduate Computer Science student at Worcester Polytechnic Institute.
-    </Text>
-    <Button component="a" href="#projects" color="indigo">
-      See my work
-    </Button>
-  </Stack>
+    <Box
+        style={{
+            paddingTop: '2rem',
+            paddingBottom: '8rem',
+        }}
+    >
+        
+        <Flex justify="center">
+            <Stack align="center" my="xl" >
+                <Flex justify="center">
+                    <Title order={1}>Hi, I'm <b>Jacob</b></Title>
+                </Flex>
+                <Text size="lg" >
+                    Currently, I am an undergraduate Computer Science student at Worcester Polytechnic Institute.
+                </Text>
+            </Stack>
+        </Flex>
+    </Box>
 );
 
 export default Intro;
