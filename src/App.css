@@ -1,12 +1,10 @@
-#root {
-  padding: 2rem;
+:root {
+  color: var(--light-green);
+  background-color: var(--dark-green);
 }
 
-.card {
-  padding: 2em;
+.background-image {
+    padding-top: 20vh;
+    
+    margin: 0 auto;
 }
-
-.read-the-docs {
-  color: #888;
-}
-

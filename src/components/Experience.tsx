@@ -2,13 +2,12 @@ import { Title, Text, Stack, Flex, Box, Container } from '@mantine/core';
 
 const Experience = () => (
     <Box
+        className='box-section'
         style={{
-            paddingTop: '2rem',
-            paddingBottom: '6rem',
         }}
     >
 
-        <Flex justify="center" >
+        <Flex >
             <Stack align="center" my="xl">
                 {/* Title */}
                 <Flex justify="start" >
@@ -17,15 +16,15 @@ const Experience = () => (
 
                 {/* Experiences */}
                 <Container>
-                    <Title order={2} mb="md">Data Science Intern</Title>
-                    <Title order={4} mb="md">June-Aug 2024</Title>
-                    <Text size="lg" >
+                    <Title order={2} style={{marginBottom: "0"}}>Data Science Intern</Title>
+                    <Title order={4} style={{marginTop: "0"}} >June-Aug 2024</Title>
+                    <Text className='bullet-point' >
                         - Utilized SQL and Tableau to clean, filter, and arrange data from Oracle databases.
                     </Text>
-                    <Text size="lg" >
+                    <Text className='bullet-point'>
                         - Derived actionable insight using Python and statistical analysis software JMP.
                     </Text>
-                    <Text size="lg" >
+                    <Text className='bullet-point' >
                         - Proposed a plan of action to reduce the overall error rate by 25% based on analysis. 
                     </Text>
                 </Container>
