@@ -62,3 +62,7 @@ button:focus-visible {
 .bullet-point {
   font-size: var(--small-font);
 }
+
+html {
+  scroll-behavior: smooth;
+}

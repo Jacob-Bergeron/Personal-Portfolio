@@ -4,7 +4,6 @@
 }
 
 .background-image {
-    padding-top: 20vh;
-    
-    margin: 0 auto;
+  border: 1px solid #ddd;
+  box-shadow: 6px 6px 0 #c1ffc747;
 }

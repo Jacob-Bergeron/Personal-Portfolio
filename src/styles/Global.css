@@ -1,10 +1,11 @@
 /* Theme Colors */
 :root{
-    /*--dark-green: #111d13;
-
-    --light-green: #c7d1c8; */ 
-    --dark-green: gray;
-    --light-green: white;
+    /*
+    --dark-green: #111d13;
+    --light-green: #c7d1c8; 
+    */ 
+    --dark-green: #111d13;
+    --light-green:  #c7d1c8;
 
     --small-font: 16px;
     --med-font: 22px;

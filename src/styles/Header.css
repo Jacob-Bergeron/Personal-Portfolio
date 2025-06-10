@@ -1,0 +1,10 @@
+.header-section {
+  background: var(--dark-green);
+  color: white;
+  width: 100%;
+  position: fixed;
+}
+
+.header-button{
+    color: white;
+}

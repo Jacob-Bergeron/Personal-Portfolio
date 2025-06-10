@@ -1,14 +1,13 @@
 import { Title, Text, Stack, Flex, Box, Container } from '@mantine/core';
 
 const Experience = () => (
-    <Box
+    <Box id='experience'
         className='box-section'
-        style={{
-        }}
+
     >
 
         <Flex >
-            <Stack align="center" my="xl">
+            <Stack align="center" my="xl" >
                 {/* Title */}
                 <Flex justify="start" >
                     <Title order={1}>Experience</Title>
@@ -17,7 +16,7 @@ const Experience = () => (
                 {/* Experiences */}
                 <Container>
                     <Title order={2} style={{marginBottom: "0"}}>Data Science Intern</Title>
-                    <Title order={4} style={{marginTop: "0"}} >June-Aug 2024</Title>
+                    <Title order={4} style={{marginTop: "0"}} >June 2024 - Aug 2024</Title>
                     <Text className='bullet-point' >
                         - Utilized SQL and Tableau to clean, filter, and arrange data from Oracle databases.
                     </Text>

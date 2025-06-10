@@ -1,26 +1,23 @@
 import { Box, Flex, Text, Button } from '@mantine/core';
+import '../styles/Header.css';
 
 const Header = () => (
-  <Box
+  <Box className='header-section'>
 
-    style={{
-      backgroundColor: '#7d4f50',
-      color: 'white',
-      width: '100%',
-      position: 'fixed',
-      top: 0,
-    }}
-  >
     <Flex justify="start" align="center" style={{ paddingLeft: '2rem' }}>
       <Text fw={700}>JB</Text>
 
       <Flex justify="" align="center" gap="lg" ml="auto">
-        <Button>Experience</Button>
-        <Button>Projects</Button>
-        <a href="https://github.com/jacob-bergeron" target="_blank">
-          <Button>Github</Button>
+        <a href='#experience'>
+          <Button className='header-button' >Experience</Button>
         </a>
-        <Button>Contact</Button>
+        <a href='#project-section'>
+        <Button className='header-button' >Projects</Button>
+        </a>
+        <a href="https://github.com/jacob-bergeron" target="_blank">
+          <Button className='header-button' >Github</Button>
+        </a>
+        <Button className='header-button' >Contact</Button>
       </Flex>
     </Flex>
   </Box>

@@ -2,7 +2,7 @@ import { Box, Flex, Text, Container, Title } from '@mantine/core';
 import Project from './Project';
 
 const ProjectSection = () => (
-    <Box className='box-section'>
+    <Box id='project-section' className='box-section'>
 
         {/* Title */}
         <Flex align="center">
