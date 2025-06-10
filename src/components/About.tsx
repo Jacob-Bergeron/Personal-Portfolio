@@ -1,10 +1,9 @@
-import { Title, Text, Container, Flex, Box, rgba, Image } from '@mantine/core';
+import { Title, Text, Box } from '@mantine/core';
 
 
 
 const About = () => (
     <Box className='box-section'
-
     >
         <Title> About</Title>
         <Text>
