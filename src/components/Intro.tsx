@@ -6,13 +6,15 @@ const Intro = () => (
         style={{
             paddingTop: '15vh',
             paddingBottom: '4vh',
+            
         }}
+        
     >
 
         <Flex justify="center">
             <Stack align="center" my="xl" >
                 <Flex justify="center">
-                    <Title order={1}>Hi, I'm <b> Jacob</b></Title>
+                    <Title order={1}>Hi, I'm <b>Jacob</b></Title>
                 </Flex>
                 <Text size="lg" style={{ maxWidth: '40vw', textAlign: 'center' }}>
                     I am an undergraduate Computer Science student at Worcester Polytechnic Institute. 

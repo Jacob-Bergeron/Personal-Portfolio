@@ -3,7 +3,6 @@ import { Title, Text, Stack, Flex, Box, Container } from '@mantine/core';
 const Experience = () => (
     <Box id='experience'
         className='box-section'
-
     >
 
         <Flex >
@@ -18,13 +17,16 @@ const Experience = () => (
                     <Title order={2} style={{marginBottom: "0"}}>Data Science Intern</Title>
                     <Title order={4} style={{marginTop: "0"}} >June 2024 - Aug 2024</Title>
                     <Text className='bullet-point' >
-                        - Utilized SQL and Tableau to clean, filter, and arrange data from Oracle databases.
+                        - Analyzed high-volume data from measuring systems that generated over <b>5,000 entries</b> per hour to monitor and optimize the process flow of electronic parts.
                     </Text>
                     <Text className='bullet-point'>
-                        - Derived actionable insight using Python and statistical analysis software JMP.
+                        - Leveraged SQL and Tableau to efficiently clean, transform, and visualize large datasets extracted from Oracle databases for operational analysis.
                     </Text>
                     <Text className='bullet-point' >
-                        - Proposed a plan of action to reduce the overall error rate by 25% based on analysis. 
+                        - Conducted statistical analysis using Python and JMP to extract actionable insights and identify performance trends within the high-frequency data
+                    </Text>
+                    <Text className='bullet-point' >
+                        - Developed and presented a data-driven action plan to reduce wafer hold rates by <b>25%</b>.
                     </Text>
                 </Container>
             </Stack>

@@ -20,7 +20,7 @@ const Project = ({ title, points, image }: ProjectProps) => {
                     </Text>
 
                     {/* Bullet Points */}
-                    <List className="bullet-point" pl="pl" spacing="xs" size="xs" mt="sm" style={{}}>
+                    <List className="bullet-point" pl="pl" spacing="xs" size="xs" mt="sm">
                         {points.map((point, index) => (
                             <List.Item key={index} style={{paddingTop: '0.5rem'}}>{point}</List.Item>
                         ))}
