@@ -4,14 +4,11 @@ import "../styles/Project.css";
 interface ProjectProps {
     title: string;
     points: string[];
-    image: string;
 }
 
-const Project = ({ title, points, image }: ProjectProps) => {
+const Project = ({ title, points }: ProjectProps) => {
     return (
-        <Box className='project-card'
-    
-        >
+        <Box className='project-card'>
             <Flex justify="start" align="center" >
                 {/*  */}
                 <Box className='project-description' style={{ flex: 1 }} >
@@ -26,16 +23,6 @@ const Project = ({ title, points, image }: ProjectProps) => {
                         ))}
                     </List>
                 </Box>
-
-                {/* Image */}
-                {/* <Image
-                    src={image}
-                    alt={title}
-                    width={150}
-                    height={100}
-                    radius="md"
-                    style={{ objectFit: 'cover' }}
-                /> */}
             </Flex>
         </Box>
     );
