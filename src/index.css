@@ -55,7 +55,8 @@ button:focus-visible {
 
 .box-section {
   padding-top: 1vh;
-  padding-left: 13.5vw;
+  padding-left: 18vw;
+  padding-right: 18vw;
   padding-bottom: 4vh;
 }
 

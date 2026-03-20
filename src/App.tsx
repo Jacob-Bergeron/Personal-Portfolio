@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { MantineProvider, Image, Flex, Text } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import Header from './components/Header';
 import Intro from './components/Intro';
 import About from './components/About';
