@@ -7,6 +7,7 @@ import Experience from './components/Experience';
 import ProjectSection from './components/ProjectSection';
 import Footer from './components/Footer';
 import SkyImage from './components/SkyImage';
+import BlackHole from './components/BlackHole.tsx';
 
 import "./styles/Global.css";
 import "./App.css"
@@ -34,6 +35,7 @@ function App() {
       <Experience />
       <ProjectSection />
       <Footer />
+      <BlackHole />
       </ FadeSection>
     </MantineProvider>
   );
