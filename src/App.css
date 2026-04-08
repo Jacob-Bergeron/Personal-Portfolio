@@ -6,4 +6,30 @@
 .background-image {
   border: 1px solid #ddd;
   box-shadow: 6px 6px 0 #c1ffc747;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.sky-image-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.sky-image-wrapper:hover .background-image {
+  transform: scale(1.03);
+  box-shadow: 10px 10px 0 #c1ffc747;
+}
+
+.sky-image-caption {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 200ms ease, transform 200ms ease;
+  color: var(--light-green);
+  font-size: 0.95rem;
+}
+
+.sky-image-wrapper:hover .sky-image-caption {
+  opacity: 1;
+  transform: translateY(0);
 }
