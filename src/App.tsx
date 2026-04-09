@@ -8,6 +8,7 @@ import ProjectSection from './components/ProjectSection';
 import Footer from './components/Footer';
 import SkyImage from './components/SkyImage';
 import BlackHole from './components/BlackHole.tsx';
+import GameOfLife from './components/GameOfLife';
 
 import "./styles/Global.css";
 import "./App.css"
@@ -31,6 +32,7 @@ function App() {
       <FadeSection>
       <Intro />
       <About />
+      <GameOfLife />
       <SkyImage />
       <Experience />
       <ProjectSection />

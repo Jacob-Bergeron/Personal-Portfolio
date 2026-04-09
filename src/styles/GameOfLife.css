@@ -1,0 +1,29 @@
+.game-of-life-wrap {
+  width: 100%;
+  max-width: min(100%, 520px);
+  margin: 2rem auto 0;
+}
+
+.game-of-life {
+  width: 100%;
+  aspect-ratio: 1;
+  position: relative;
+  background-color: #0c0c0f;
+  border: 1px solid color-mix(in srgb, var(--light-green) 25%, transparent);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--light-green) 28%, transparent);
+}
+
+.game-of-life canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.game-of-life-canvas--editable {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.game-of-life-toolbar {
+  margin-top: 0.75rem;
+}

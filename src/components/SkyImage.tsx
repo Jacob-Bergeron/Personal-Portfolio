@@ -8,7 +8,7 @@ const SkyImage = () => {
         <Flex style={{ width: '100%', justifyContent: 'center', paddingTop: '8vh', paddingBottom: '8vh' }} >
             <div className='sky-image-wrapper'>
                 <Image className='background-image' src={sky} alt='Night sky landscape' />
-                <Text className='sky-image-caption'>Taken in New Hampshire, USA</Text>
+                <Text className='sky-image-caption'>Photo by me, somewhere in New Hampshire</Text>
             </div>
         </Flex>
         
