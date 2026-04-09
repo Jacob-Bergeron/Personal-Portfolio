@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Button, Group, Text, Title } from '@mantine/core';
+import { Button, Group,Title } from '@mantine/core';
 import '../styles/GameOfLife.css';
 
 const GRID_N = 32;
