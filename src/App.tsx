@@ -32,9 +32,9 @@ function App() {
       <FadeSection>
       <Intro />
       <About />
-      <GameOfLife />
       <SkyImage />
       <Experience />
+      <GameOfLife />
       <ProjectSection />
       <Footer />
       <BlackHole />

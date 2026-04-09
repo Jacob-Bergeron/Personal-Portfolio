@@ -1,7 +1,37 @@
 .game-of-life-wrap {
   width: 100%;
-  max-width: min(100%, 520px);
+  max-width: min(100%, 416px); /* ~20% smaller than 520px */
   margin: 2rem auto 0;
+}
+
+.game-of-life-header {
+  text-align: center;
+  margin-bottom: 0.85rem;
+}
+
+.game-of-life-title-link {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.game-of-life-title-link:hover {
+  text-decoration: underline;
+}
+
+.game-of-life-title {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.game-of-life-caption {
+  margin: 0;
+  line-height: 1.45;
+  max-width: 34ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .game-of-life {
@@ -10,7 +40,7 @@
   position: relative;
   background-color: #0c0c0f;
   border: 1px solid color-mix(in srgb, var(--light-green) 25%, transparent);
-  box-shadow: 6px 6px 0 color-mix(in srgb, var(--light-green) 28%, transparent);
+  /* box-shadow: 6px 6px 0 color-mix(in srgb, var(--light-green) 28%, transparent); */
 }
 
 .game-of-life canvas {
@@ -24,6 +54,106 @@
   touch-action: none;
 }
 
-.game-of-life-toolbar {
+.game-of-life-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.25rem;
+  flex-wrap: wrap;
+  width: 100%;
   margin-top: 0.75rem;
+}
+
+.game-of-life-toolbar {
+  flex-shrink: 0;
+  width: auto;
+  justify-content: center;
+}
+
+.game-of-life-speed {
+  flex: 1 1 160px;
+  min-width: 140px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.game-of-life-speed-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--light-green) 72%, transparent);
+}
+
+.game-of-life-speed-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.game-of-life-speed-hint {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--light-green) 45%, transparent);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.game-of-life-speed-value {
+  font-size: 0.7rem;
+  color: color-mix(in srgb, var(--light-green) 65%, transparent);
+  align-self: center;
+}
+
+/* Native range: interval between steps in ms (lower = faster animation). */
+.game-of-life-speed-input {
+  flex: 1;
+  min-width: 0;
+  height: 1.25rem;
+  margin: 0;
+  accent-color: var(--light-green);
+  cursor: pointer;
+}
+
+.game-of-life-speed-input::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--light-green) 22%, transparent);
+}
+
+.game-of-life-speed-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--light-green);
+  border: 1px solid color-mix(in srgb, var(--light-green) 50%, #0c0c0f);
+}
+
+.game-of-life-speed-input::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--light-green) 22%, transparent);
+}
+
+.game-of-life-speed-input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--light-green);
+  border: 1px solid color-mix(in srgb, var(--light-green) 50%, #0c0c0f);
+  cursor: pointer;
+}
+
+.game-of-life-toolbar button {
+  background-color: --tan-third;
+  color: #c7d1c8;
+  border: 1px solid #c7d1c8;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
 }

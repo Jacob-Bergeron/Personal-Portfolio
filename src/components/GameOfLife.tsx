@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Button, Group } from '@mantine/core';
+import { Button, Group, Text, Title } from '@mantine/core';
 import '../styles/GameOfLife.css';
 
 const GRID_N = 32;
-const STEP_MS = 90;
+/** Milliseconds between generations (slider adjusts this). */
+const DEFAULT_STEP_MS = 100;
+const MIN_STEP_MS = 20;
+const MAX_STEP_MS = 280;
 /** Stop automatically after this wall-clock duration so the loop cannot run indefinitely. */
 const MAX_RUN_MS = 120_000;
 
@@ -71,12 +74,18 @@ function GameOfLife() {
   const lastStepRef = useRef(0);
   const dragValueRef = useRef<number | null>(null);
   const lastCellRef = useRef<{ x: number; y: number } | null>(null);
+  const stepMsRef = useRef(DEFAULT_STEP_MS);
 
   const [running, setRunning] = useState(false);
+  const [stepMs, setStepMs] = useState(DEFAULT_STEP_MS);
 
   useEffect(() => {
     runningRef.current = running;
   }, [running]);
+
+  useEffect(() => {
+    stepMsRef.current = stepMs;
+  }, [stepMs]);
 
   const screenToCell = useCallback((clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
@@ -213,7 +222,7 @@ function GameOfLife() {
         if (t - runStartedAtRef.current >= MAX_RUN_MS) {
           runningRef.current = false;
           setRunning(false);
-        } else if (t - lastStepRef.current >= STEP_MS) {
+        } else if (t - lastStepRef.current >= stepMsRef.current) {
           lastStepRef.current = t;
           const cur = curRef.current;
           const nxt = nxtRef.current;
@@ -269,8 +278,26 @@ function GameOfLife() {
     nxtRef.current.fill(0);
   }, []);
 
+
   return (
     <div className="game-of-life-wrap">
+      <header className="game-of-life-header">
+        <a
+          className="game-of-life-title-link"
+          href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Title order={3} className="game-of-life-title">
+            Conway&apos;s Game of Life
+          </Title>
+        </a>
+        {/*
+        <Text size="sm" className="game-of-life-caption" c="dimmed">
+          Click or drag to place live cells, then run the simulation.
+        </Text>
+          */}
+      </header>
       <div
         className="game-of-life"
         ref={rootRef}
@@ -282,17 +309,44 @@ function GameOfLife() {
           aria-label="Conway's Game of Life grid. When simulation is stopped, click or drag to toggle cells."
         />
       </div>
-      <Group className="game-of-life-toolbar" gap="sm" justify="center" wrap="wrap">
-        <Button onClick={handleRun} disabled={running} variant="filled">
-          Run
-        </Button>
-        <Button onClick={handleStop} disabled={!running} variant="default">
-          Stop
-        </Button>
-        <Button onClick={handleClear} variant="outline">
-          Clear
-        </Button>
-      </Group>
+      <div className="game-of-life-controls">
+        <Group className="game-of-life-toolbar" gap="sm" justify="center" wrap="wrap">
+          <Button onClick={handleRun} disabled={running} variant="filled">
+            Run
+          </Button>
+          <Button onClick={handleStop} disabled={!running} variant="default">
+            Stop
+          </Button>
+          <Button onClick={handleClear} variant="outline">
+            Clear
+          </Button>
+        </Group>
+        <div className="game-of-life-speed">
+          <label className="game-of-life-speed-label" htmlFor="game-of-life-speed">
+            Speed
+          </label>
+          <div className="game-of-life-speed-row">
+            <span className="game-of-life-speed-hint" aria-hidden="true">
+              fast
+            </span>
+            <input
+              id="game-of-life-speed"
+              className="game-of-life-speed-input"
+              type="range"
+              min={MIN_STEP_MS}
+              max={MAX_STEP_MS}
+              step={5}
+              value={stepMs}
+              onChange={(e) => setStepMs(Number(e.target.value))}
+              aria-valuetext={`${stepMs} milliseconds between steps. Lower is faster.`}
+            />
+            <span className="game-of-life-speed-hint" aria-hidden="true">
+              slow
+            </span>
+          </div>
+          <span className="game-of-life-speed-value">{stepMs} ms</span>
+        </div>
+      </div>
     </div>
   );
 }
