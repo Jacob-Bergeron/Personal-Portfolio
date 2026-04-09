@@ -14,7 +14,33 @@ const Experience = () => (
 
                 {/* Experiences */}
                 <Container>
-                    <Title order={2} style={{marginBottom: "0"}}>Data Science Intern</Title>
+                    <Title order={2} style={{marginBottom: "0"}}>Software Engineering Intern @ RTX</Title>
+                    <Title order={4} style={{marginTop: "0"}} >June 2025 - May 2026</Title>
+                    <Text className='bullet-point' >
+                        - Placeholder text for now.
+                    </Text>
+                    <Text className='bullet-point'>
+                        - Placeholder text for now.
+                    </Text>
+                    <Text className='bullet-point' >
+                        - Placeholder text for now.
+                    </Text>
+                </Container>
+                <Container>
+                    <Title order={2} style={{marginBottom: "0"}}>Front-End Developer @ Mosaiq</Title>
+                    <Title order={4} style={{marginTop: "0"}} >June 2025 - May 2026</Title>
+                    <Text className='bullet-point' >
+                        - Placeholder text for now.
+                    </Text>
+                    <Text className='bullet-point'>
+                        - Placeholder text for now.
+                    </Text>
+                    <Text className='bullet-point' >
+                        - Placeholder text for now.
+                    </Text>
+                </Container>
+                <Container>
+                    <Title order={2} style={{marginBottom: "0"}}>Data Science Intern @ RTX</Title>
                     <Title order={4} style={{marginTop: "0"}} >June 2024 - Aug 2024</Title>
                     <Text className='bullet-point' >
                         - Analyzed high-volume data from measuring systems that generated over <b>5,000 entries</b> per hour to monitor and optimize the process flow of electronic parts.

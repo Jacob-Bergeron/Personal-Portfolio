@@ -5,7 +5,7 @@ const About = () => (
     >
         <Title> About</Title>
         <Text>
-            I am currently a Software Development Intern at RTX.
+            I am currently a Software Development Engineer at RTX. I like puzzles, optimizing things, and learning.
             Outside of work and school, I enjoy being outdoors, reading philosophy and playing video games.
         </Text>
     </Box>

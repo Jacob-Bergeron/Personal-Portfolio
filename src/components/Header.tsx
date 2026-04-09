@@ -1,6 +1,11 @@
 import { Box, Flex, Text, Button } from '@mantine/core';
 import '../styles/Header.css';
 
+const CONTACT_EMAIL =
+  import.meta.env.VITE_CONTACT_EMAIL ?? 'jbergeron952@gmail.com';
+
+const contactMailto = `mailto:${CONTACT_EMAIL}`;
+
 const Header = () => (
   <Box className='header-section'>
 
@@ -17,7 +22,9 @@ const Header = () => (
         <a href="https://github.com/jacob-bergeron" target="_blank">
           <Button className='header-button' >Github</Button>
         </a>
-        <Button className='header-button' >Contact</Button>
+        <a href={contactMailto}>
+          <Button className='header-button'>Contact</Button>
+        </a>
       </Flex>
     </Flex>
   </Box>
