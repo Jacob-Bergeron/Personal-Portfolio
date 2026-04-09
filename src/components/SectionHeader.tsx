@@ -5,7 +5,7 @@ interface SectionHeaderProps {
   title: string;
 }
 
-const SectionHeader = ({ title }: SectionHeaderProps) => (
+const SectionHeader = ({ title: _title }: SectionHeaderProps) => (
     <Box>
         
     </Box>

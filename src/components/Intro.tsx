@@ -4,6 +4,7 @@ import { Title, Text, Stack, Flex, Box} from '@mantine/core';
 const Intro = () => (
     
     <Box
+        data-aos="fade-up"
         style={{
             paddingTop: '15vh',
             paddingBottom: '4vh',

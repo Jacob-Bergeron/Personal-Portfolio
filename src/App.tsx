@@ -15,13 +15,12 @@ import "./App.css"
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import FadeSection from './components/FadeSection';
 
 function App() {
   useEffect(() => {
     AOS.init({
-      duration: 1800, 
-      once: true, 
+      duration: 1800,
+      once: true,
       offset: 100,
     });
   }, []);
@@ -29,7 +28,6 @@ function App() {
   return (
     <MantineProvider >
       <Header />
-      <FadeSection>
       <Intro />
       <About />
       <SkyImage />
@@ -38,7 +36,6 @@ function App() {
       <ProjectSection />
       <Footer />
       <BlackHole />
-      </ FadeSection>
     </MantineProvider>
   );
 }

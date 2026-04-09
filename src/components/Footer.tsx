@@ -1,8 +1,10 @@
-import { Text, Container, Flex, Box } from '@mantine/core';
+import { Text, Flex, Box } from '@mantine/core';
 
 const Footer = () => {
     return (
-        <Box style={{
+        <Box
+            data-aos="fade-up"
+            style={{
             paddingTop: '8vh',
         }}
         >

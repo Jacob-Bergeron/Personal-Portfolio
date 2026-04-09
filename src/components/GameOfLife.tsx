@@ -280,7 +280,7 @@ function GameOfLife() {
 
 
   return (
-    <div className="game-of-life-wrap">
+    <div className="game-of-life-wrap" data-aos="fade-up">
       <header className="game-of-life-header">
         <a
           className="game-of-life-title-link"

@@ -3,6 +3,7 @@ import { Title, Text, Stack, Flex, Box, Container } from '@mantine/core';
 const Experience = () => (
     <Box id='experience'
         className='box-section'
+        data-aos="fade-up"
     >
 
         <Flex >

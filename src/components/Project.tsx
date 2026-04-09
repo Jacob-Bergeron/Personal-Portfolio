@@ -1,4 +1,4 @@
-import { Box, Text, Image, Flex, List } from '@mantine/core';
+import { Box, Text, Flex, List } from '@mantine/core';
 import "../styles/Project.css";
 
 interface ProjectProps {

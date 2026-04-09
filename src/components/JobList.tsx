@@ -1,4 +1,4 @@
-
+/*
 interface JobProps {
     title: string;
     company: string;
@@ -6,7 +6,6 @@ interface JobProps {
     points: string[];
 }
 
-/*
 const JobList = ({title, company, date, points}): JobProps => {
 
 
