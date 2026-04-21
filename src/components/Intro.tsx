@@ -16,7 +16,7 @@ const Intro = () => (
                     <Title order={1}>Hi, I'm <b>Jacob</b></Title>
                 </Flex>
                 <Text size="lg" style={{ maxWidth: '40vw', textAlign: 'center' }}>
-                    I am an undergraduate Computer Science student at Worcester Polytechnic Institute.
+                    I am an undergraduate Computer and Data Science student at Worcester Polytechnic Institute.
                 </Text>
             </Stack>
             

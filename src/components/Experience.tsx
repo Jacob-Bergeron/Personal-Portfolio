@@ -18,33 +18,30 @@ const Experience = () => (
                     <Title order={2} style={{marginBottom: "0"}}>Software Engineering Intern @ RTX</Title>
                     <Title order={4} style={{marginTop: "0"}} >June 2025 - May 2026</Title>
                     <Text className='bullet-point' >
-                        - Placeholder text for now.
+                        - Reduced manual deployment time of a 15-year-old legacy infrastructure by 40% with Python automation and JFrog Artifactory.
                     </Text>
                     <Text className='bullet-point'>
-                        - Placeholder text for now.
+                        - Developed a modular codebase to replace 13 independent systems, reducing redundant development efforts by 10x - 13x.
                     </Text>
                     <Text className='bullet-point' >
-                        - Placeholder text for now.
+                        - Rebuilt a Python GUI from scratch to replace a legacy interface, achieving functionality across 90% of features.
                     </Text>
                 </Container>
                 <Container>
                     <Title order={2} style={{marginBottom: "0"}}>Front-End Developer @ Mosaiq</Title>
                     <Title order={4} style={{marginTop: "0"}} >June 2025 - May 2026</Title>
                     <Text className='bullet-point' >
-                        - Placeholder text for now.
+                        - Collaborated on a 10-person team to develop a Trello-style full-stack app using TypeScript and WebSockets.
                     </Text>
                     <Text className='bullet-point'>
-                        - Placeholder text for now.
-                    </Text>
-                    <Text className='bullet-point' >
-                        - Placeholder text for now.
+                        - Built front-end features with React, focusing on user interface responsiveness and interactivity.
                     </Text>
                 </Container>
                 <Container>
                     <Title order={2} style={{marginBottom: "0"}}>Data Science Intern @ RTX</Title>
                     <Title order={4} style={{marginTop: "0"}} >June 2024 - Aug 2024</Title>
                     <Text className='bullet-point' >
-                        - Analyzed high-volume data from measuring systems that generated over <b>5,000 entries</b> per hour to monitor and optimize the process flow of electronic parts.
+                        - Analyzed high-throughput measurement data exceeding 5,000 entries per hour from RF and semiconductor fabrication systems. 
                     </Text>
                     <Text className='bullet-point'>
                         - Leveraged SQL and Tableau to efficiently clean, transform, and visualize large datasets extracted from Oracle databases for operational analysis.
