@@ -12,11 +12,11 @@ const ProjectSection = () => (
         <Container>
             <Flex gap="md" direction="column" >
                 <Project
-                    title="Terrazzo - Full-Stack Web App"
+                    title="Mind in the Machine - LLM Research"
                     points={[
-                        'Collaborated on a 10-person team to develop a Trello-style full-stack application using TypeScript, React, and WebSockets.',
-                        'Contributed to front-end feature implementation using Mantine UI components, focusing on user interface responsiveness and interactivity.',
-                        'Participated in agile development using stand-up meetings and storyboards to coordinate and track progress.',
+                        'Designed a 250 sample dataset to evaluate LLM Theory of Mind capabilities through reasoning questions.',
+                        'Integrated OpenAI / Anthropic / Gemini APIs.',
+                        'Analyzed LLM responses to identify patterns and evaluate performance metrics.',
                     ]}
                 />
                 <Project
