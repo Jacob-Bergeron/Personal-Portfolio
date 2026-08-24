@@ -5,8 +5,8 @@ const About = () => (
     >
         <Title> About</Title>
         <Text>
-            I am currently a Software Development Engineer at RTX. I like puzzles, optimizing things, and learning.
-            Outside of work and school, I enjoy being outdoors, reading philosophy and playing video games.
+            I am currently a Software Engineer at RTX. Recently, I've been interested in experimenting with WebGPU and WebXR to build immersive experiences on the web.
+            Outside of work, I enjoy being outdoors, reading philosophy and playing video games.
         </Text>
     </Box>
 );

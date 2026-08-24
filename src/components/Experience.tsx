@@ -24,7 +24,7 @@ const Experience = () => (
                         - Developed a modular codebase to replace 13 independent systems, reducing redundant development efforts by 10x - 13x.
                     </Text>
                     <Text className='bullet-point' >
-                        - Rebuilt a Python GUI from scratch to replace a legacy interface, achieving functionality across 90% of features.
+                        - Built a Python GUI from scratch to replace a legacy interface, achieving functionality across 90% of features.
                     </Text>
                 </Container>
                 <Container>

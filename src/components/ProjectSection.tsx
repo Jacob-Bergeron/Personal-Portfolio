@@ -14,7 +14,7 @@ const ProjectSection = () => (
                 <Project
                     title="Mind in the Machine - LLM Research"
                     points={[
-                        'Designed a dataset to evaluate LLM Theory of Mind capabilities through reasoning questions.',
+                        'Designed a 200 sample dataset to evaluate LLM Theory of Mind capabilities through reasoning questions.',
                         'Integrated OpenAI / Anthropic / Gemini APIs.',
                         'Analyzed LLM responses to identify patterns and evaluate performance metrics.',
                     ]}
