@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Group, Title } from '@mantine/core';
 import '../styles/GameOfLife.css';
+import { GRID_N, type Layout, type LifeBackend } from '../life/constants';
+import { createLifeBackend } from '../life/createBackend';
 
-const GRID_N = 32;
 /** Milliseconds between generations (slider adjusts this). */
 const DEFAULT_STEP_MS = 100;
 const MIN_STEP_MS = 20;
@@ -10,54 +11,10 @@ const MAX_STEP_MS = 280;
 /** Stop automatically after this wall-clock duration so the loop cannot run indefinitely. */
 const MAX_RUN_MS = 120_000;
 
-/** Neutral panel fill so the grid reads apart from the page (--dark-green is #111d13). */
-const COLOR_DEAD = '#0c0c0f';
-const COLOR_ALIVE = '#c7d1c8';
-/** Cell border lines (light green, visible on dark panel). */
-const COLOR_GRID = 'rgba(199, 209, 200, 0.4)';
-
-type Layout = {
-  cssW: number;
-  cssH: number;
-  padX: number;
-  padY: number;
-  cell: number;
-};
-
-function countNeighbors(cur: Uint8Array, n: number, x: number, y: number) {
-  let c = 0;
-  for (let dy = -1; dy <= 1; dy += 1) {
-    const yy = y + dy;
-    if (yy < 0 || yy >= n) continue;
-    const row = yy * n;
-    for (let dx = -1; dx <= 1; dx += 1) {
-      if (dx === 0 && dy === 0) continue;
-      const xx = x + dx;
-      if (xx >= 0 && xx < n && cur[row + xx]) c += 1;
-    }
-  }
-  return c;
-}
-
-function step(cur: Uint8Array, next: Uint8Array, n: number) {
-  for (let y = 0; y < n; y += 1) {
-    const row = y * n;
-    for (let x = 0; x < n; x += 1) {
-      const idx = row + x;
-      const neighbors = countNeighbors(cur, n, x, y);
-      const alive = cur[idx];
-      next[idx] =
-        (alive === 1 && (neighbors === 2 || neighbors === 3)) ||
-        (alive === 0 && neighbors === 3)
-          ? 1
-          : 0;
-    }
-  }
-}
-
 function GameOfLife() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const backendRef = useRef<LifeBackend | null>(null);
   const layoutRef = useRef<Layout>({
     cssW: 0,
     cssH: 0,
@@ -65,9 +22,6 @@ function GameOfLife() {
     padY: 0,
     cell: 0,
   });
-
-  const curRef = useRef<Uint8Array>(new Uint8Array(GRID_N * GRID_N));
-  const nxtRef = useRef<Uint8Array>(new Uint8Array(GRID_N * GRID_N));
 
   const runningRef = useRef(false);
   const runStartedAtRef = useRef(0);
@@ -105,16 +59,14 @@ function GameOfLife() {
     const canvas = canvasRef.current;
     if (!root || !canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
     const n = GRID_N;
-    let dpi = window.devicePixelRatio || 1;
+    let cancelled = false;
     let rafId = 0;
+    let backend: LifeBackend | null = null;
 
     const setCanvasSize = () => {
       const rect = root.getBoundingClientRect();
-      dpi = window.devicePixelRatio || 1;
+      const dpi = window.devicePixelRatio || 1;
       const cssW = rect.width;
       const cssH = rect.height;
       canvas.width = Math.max(1, Math.floor(cssW * dpi));
@@ -123,68 +75,24 @@ function GameOfLife() {
       const padX = (cssW - cell * n) * 0.5;
       const padY = (cssH - cell * n) * 0.5;
       layoutRef.current = { cssW, cssH, padX, padY, cell };
-    };
-
-    const draw = () => {
-      const cur = curRef.current;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.fillStyle = COLOR_DEAD;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const { padX, padY, cell } = layoutRef.current;
-      if (cell <= 0) return;
-
-      ctx.save();
-      ctx.scale(dpi, dpi);
-      ctx.fillStyle = COLOR_ALIVE;
-      const gap = cell > 2 ? 0.5 : 0;
-      const w = Math.max(0.5, cell - gap);
-      for (let y = 0; y < n; y += 1) {
-        const row = y * n;
-        for (let x = 0; x < n; x += 1) {
-          if (cur[row + x]) {
-            ctx.fillRect(padX + x * cell + gap * 0.5, padY + y * cell + gap * 0.5, w, w);
-          }
-        }
-      }
-
-      const gridRight = padX + n * cell;
-      const gridBottom = padY + n * cell;
-      ctx.strokeStyle = COLOR_GRID;
-      ctx.lineWidth = 1;
-      ctx.lineCap = 'square';
-      ctx.beginPath();
-      for (let i = 0; i <= n; i += 1) {
-        const x = padX + i * cell;
-        ctx.moveTo(x, padY);
-        ctx.lineTo(x, gridBottom);
-      }
-      for (let j = 0; j <= n; j += 1) {
-        const y = padY + j * cell;
-        ctx.moveTo(padX, y);
-        ctx.lineTo(gridRight, y);
-      }
-      ctx.stroke();
-      ctx.restore();
+      backend?.resize(layoutRef.current);
     };
 
     const paintAt = (clientX: number, clientY: number, mode: 'toggle' | 'drag') => {
-      if (runningRef.current) return;
+      if (runningRef.current || !backend) return;
       const cellPos = screenToCell(clientX, clientY);
       if (!cellPos) return;
       const idx = cellPos.y * n + cellPos.x;
-      const cur = curRef.current;
 
       if (mode === 'toggle') {
-        cur[idx] ^= 1;
-        dragValueRef.current = cur[idx];
+        dragValueRef.current = backend.toggle(idx);
       } else if (dragValueRef.current !== null) {
         const last = lastCellRef.current;
         if (last && last.x === cellPos.x && last.y === cellPos.y) return;
-        cur[idx] = dragValueRef.current;
+        backend.setCell(idx, dragValueRef.current);
       }
       lastCellRef.current = cellPos;
-      draw();
+      backend.draw();
     };
 
     const onPointerDown = (e: PointerEvent) => {
@@ -213,26 +121,23 @@ function GameOfLife() {
     };
 
     const tick = (t: number) => {
+      if (cancelled) return;
       if (document.visibilityState === 'hidden') {
         rafId = requestAnimationFrame(tick);
         return;
       }
 
-      if (runningRef.current) {
+      if (backend && runningRef.current) {
         if (t - runStartedAtRef.current >= MAX_RUN_MS) {
           runningRef.current = false;
           setRunning(false);
         } else if (t - lastStepRef.current >= stepMsRef.current) {
           lastStepRef.current = t;
-          const cur = curRef.current;
-          const nxt = nxtRef.current;
-          step(cur, nxt, n);
-          curRef.current = nxt;
-          nxtRef.current = cur;
+          backend.step();
         }
       }
 
-      draw();
+      backend?.draw();
       rafId = requestAnimationFrame(tick);
     };
 
@@ -240,21 +145,36 @@ function GameOfLife() {
       setCanvasSize();
     };
 
-    setCanvasSize();
-    window.addEventListener('resize', onResize);
-    canvas.addEventListener('pointerdown', onPointerDown);
-    canvas.addEventListener('pointermove', onPointerMove);
-    canvas.addEventListener('pointerup', onPointerUp);
-    canvas.addEventListener('pointercancel', onPointerUp);
-    rafId = requestAnimationFrame(tick);
+    const start = async () => {
+      const created = await createLifeBackend(canvas);
+      if (cancelled) {
+        created?.dispose();
+        return;
+      }
+      if (!created) return;
+      backend = created;
+      backendRef.current = created;
+      setCanvasSize();
+      window.addEventListener('resize', onResize);
+      canvas.addEventListener('pointerdown', onPointerDown);
+      canvas.addEventListener('pointermove', onPointerMove);
+      canvas.addEventListener('pointerup', onPointerUp);
+      canvas.addEventListener('pointercancel', onPointerUp);
+      rafId = requestAnimationFrame(tick);
+    };
+
+    void start();
 
     return () => {
+      cancelled = true;
       window.removeEventListener('resize', onResize);
       canvas.removeEventListener('pointerdown', onPointerDown);
       canvas.removeEventListener('pointermove', onPointerMove);
       canvas.removeEventListener('pointerup', onPointerUp);
       canvas.removeEventListener('pointercancel', onPointerUp);
       cancelAnimationFrame(rafId);
+      backend?.dispose();
+      backendRef.current = null;
     };
   }, [screenToCell]);
 
@@ -274,10 +194,8 @@ function GameOfLife() {
   const handleClear = useCallback(() => {
     runningRef.current = false;
     setRunning(false);
-    curRef.current.fill(0);
-    nxtRef.current.fill(0);
+    backendRef.current?.clear();
   }, []);
-
 
   return (
     <div className="game-of-life-wrap" data-aos="fade-up">
@@ -292,11 +210,6 @@ function GameOfLife() {
             Conway&apos;s Game of Life
           </Title>
         </a>
-        {/*
-        <Text size="sm" className="game-of-life-caption" c="dimmed">
-          Click or drag to place live cells, then run the simulation.
-        </Text>
-          */}
       </header>
       <div
         className="game-of-life"
