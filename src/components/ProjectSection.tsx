@@ -28,14 +28,7 @@ const ProjectSection = () => (
                         'Coded JavaScript lambda functions and used REST API to connect front-end with relational database'
                     ]}
                 />
-                <Project
-                    title="Assessing Simple AF's Position in the Circular Economy - Interactive Qualifying Project "
-                    points={[
-                        'Designed and distributed a consumer sentiment survey, collecting 200+ responses on sustainability in Panama.',
-                        'Analyzed survey and market data using Python to identify sustainable manufacturing trends and growth opportunities.',
-                        'Developed a strategic plan for Simple AF to expand market presence based on research-driven insights.',
-                    ]}
-                />
+                
             </Flex>
         </Container>
 
