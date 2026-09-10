@@ -1,0 +1,71 @@
+.room-3d-page {
+  padding-top: calc(var(--header-height) + 3rem);
+  padding-bottom: 4rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.room-3d-wrap {
+  width: 100%;
+  max-width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.room-3d-header {
+  text-align: center;
+  margin-bottom: 0.85rem;
+}
+
+.room-3d-title {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.room-3d-caption {
+  margin: 0;
+  line-height: 1.45;
+  max-width: 42ch;
+  margin-left: auto;
+  margin-right: auto;
+  color: color-mix(in srgb, var(--light-green) 78%, transparent);
+  font-size: 0.95rem;
+}
+
+.room-3d-stage {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  position: relative;
+  background-color: #0c0c0f;
+  border: 1px solid color-mix(in srgb, var(--light-green) 25%, transparent);
+}
+
+.room-3d-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.room-3d-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.room-3d-controls button {
+  color: #c7d1c8;
+  border: 1px solid #c7d1c8;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}

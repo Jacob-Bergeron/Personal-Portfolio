@@ -1,14 +1,9 @@
 import { useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
 import Header from './components/Header';
-import Intro from './components/Intro';
-import About from './components/About';
-import Experience from './components/Experience';
-import ProjectSection from './components/ProjectSection';
-import Footer from './components/Footer';
-import SkyImage from './components/SkyImage';
-import BlackHole from './components/BlackHole.tsx';
-import GameOfLife from './components/GameOfLife';
+import HomePage from './pages/HomePage';
+import ThreeDRoomPage from './pages/3DRoomPage';
 
 import "./styles/Global.css";
 import "./App.css"
@@ -26,20 +21,15 @@ function App() {
   }, []);
 
   return (
-    <MantineProvider >
+    <MantineProvider>
       <Header />
-      <Intro />
-      <About />
-      <SkyImage />
-      <Experience />
-      <GameOfLife />
-      <ProjectSection />
-      <Footer />
-      <BlackHole />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/3d-room" element={<ThreeDRoomPage />} />
+        <Route path="/icosahedron" element={<Navigate to="/3d-room" replace />} />
+      </Routes>
     </MantineProvider>
   );
 }
 
 export default App;
-
-
