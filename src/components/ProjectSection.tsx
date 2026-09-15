@@ -11,6 +11,12 @@ const ProjectSection = () => (
 
         <Container>
             <Flex gap="md" direction="column" >
+            <Project
+                    title=""
+                    points={[
+                        
+                    ]}
+                />
                 <Project
                     title="Mind in the Machine - LLM Research"
                     points={[

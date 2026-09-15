@@ -10,6 +10,7 @@ const ROOM_D = 8;
 const ICO_RADIUS = 0.55;
 const IDLE_Y = 0.004;
 
+// Create a plane helper function
 function plane(
   w: number,
   h: number,
@@ -26,6 +27,7 @@ function plane(
   return { mesh, geo, mat };
 }
 
+// Main component
 function ThreeDRoom() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -53,6 +55,7 @@ function ThreeDRoom() {
     const toDispose: THREE.BufferGeometry[] = [];
     const toDisposeMat: THREE.Material[] = [];
 
+    // Create the walls, floor and ceiling
     const floor = plane(ROOM_W, ROOM_D, 0x2a2418);
     floor.mesh.rotation.x = -Math.PI / 2;
     floor.mesh.position.y = 0;
@@ -83,6 +86,7 @@ function ThreeDRoom() {
       toDisposeMat.push(wall.mat);
     }
 
+    // Create the icosahedron
     const icoGeo = new THREE.IcosahedronGeometry(ICO_RADIUS, 1);
     const icoMat = new THREE.MeshStandardMaterial({
       color: 0xc7d1c8,
@@ -114,6 +118,7 @@ function ThreeDRoom() {
     toDisposeMat.push(pedestalMat);
     ico.position.y = 0.18 + ICO_RADIUS;
 
+    // Lighting
     const ambient = new THREE.AmbientLight(0xc7d1c8, 0.22);
     const lamp = new THREE.PointLight(0xf2d895, 55, 18);
     lamp.position.set(0, ROOM_H - 0.35, 0);
@@ -133,6 +138,8 @@ function ThreeDRoom() {
     controls.minDistance = 0.8;
     controls.maxDistance = 5.2;
 
+
+    // Prevent the camera from moving outside the room
     const inset = 0.35;
     const roomMin = new THREE.Vector3(
       -ROOM_W / 2 + inset,
@@ -171,6 +178,7 @@ function ThreeDRoom() {
       camera.updateProjectionMatrix();
     };
 
+    // Update the scene
     const tick = () => {
       if (cancelled) return;
       if (document.visibilityState !== 'hidden') {
@@ -211,13 +219,13 @@ function ThreeDRoom() {
           3D Room
         </Title>
         <p className="room-3d-caption">
-          Drag to look around. The icosahedron sits on a pedestal under a ceiling lamp.
+          Left click to look around. Right click to move left and right. Scroll to zoom.
         </p>
       </header>
       <div className="room-3d-stage" ref={rootRef}>
         <canvas
           ref={canvasRef}
-          aria-label="3D room with an icosahedron. Drag to orbit the camera."
+  
         />
       </div>
       <div className="room-3d-controls">
