@@ -15,8 +15,8 @@ const Experience = () => (
 
                 {/* Experiences */}
                 <Container>
-                    <Title order={2} style={{marginBottom: "0"}}>Software Engineering Intern @ RTX</Title>
-                    <Title order={4} style={{marginTop: "0"}} >June 2025 - May 2026</Title>
+                    <Title order={2} style={{marginBottom: "0"}}>Software Engineer @ RTX</Title>
+                    <Title order={4} style={{marginTop: "0"}} >June 2025 - Current</Title>
                     <Text className='bullet-point' >
                         - Reduced manual deployment time of a 15-year-old legacy infrastructure by 40% with Python automation and JFrog Artifactory.
                     </Text>
