@@ -22,8 +22,8 @@ const Header = () => (
         <Link to="/#project-section">
           <Button className='header-button'>Projects</Button>
         </Link>
-        <Link to="/3d-room">
-          <Button className='header-button'>3D Room</Button>
+        <Link to="/escape-room">
+          <Button className='header-button'>Escape Room</Button>
         </Link>
         <a href="https://github.com/jacob-bergeron" target="_blank" rel="noopener noreferrer">
           <Button className='header-button'>Github</Button>
