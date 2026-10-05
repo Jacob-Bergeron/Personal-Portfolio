@@ -29,12 +29,28 @@ const PANEL_H = 0.52;
 const PANEL_T = 0.045;
 const CODE_COUNT = 3;
 const SLOT_COUNT = 3;
-
-// Three letters written into the open book on the middle shelf. This is the last door code.
-const BOOK_CODE = 'KEY';
+const CORRECT_CODES = [
+  ['1', '1', '1'],
+  ['1', '1', '1'],
+  ['1', '1', '1'],
+];
 
 function blankCodes() {
   return Array.from({ length: CODE_COUNT }, () => Array<string>(SLOT_COUNT).fill(''));
+}
+
+function codesAreCorrect(entered: string[][]) {
+  for (let codeIndex = 0; codeIndex < CORRECT_CODES.length; codeIndex++) {
+    const answer = CORRECT_CODES[codeIndex];
+    const attempt = entered[codeIndex];
+    if (!attempt || attempt.length !== answer.length) return false;
+
+    for (let slotIndex = 0; slotIndex < answer.length; slotIndex++) {
+      if (attempt[slotIndex] !== answer[slotIndex]) return false;
+    }
+  }
+
+  return true;
 }
 
 // Three numbers painted on the back wall. Each one only appears under its lamp color.
@@ -122,32 +138,37 @@ function EscapeRoom() {
   const openBookRef = useRef(() => {});
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const bookCloseRef = useRef<HTMLButtonElement | null>(null);
+  const resultCloseRef = useRef<HTMLButtonElement | null>(null);
   const slotRefs = useRef<(HTMLInputElement | null)[][]>(
     Array.from({ length: CODE_COUNT }, () => Array<HTMLInputElement | null>(SLOT_COUNT).fill(null)),
   );
   const [panelOpen, setPanelOpen] = useState(false);
   const [bookOpen, setBookOpen] = useState(false);
+  const [codeResult, setCodeResult] = useState<'escaped' | 'incorrect' | null>(null);
   const [codes, setCodes] = useState(blankCodes);
 
   // Opening an overlay freezes the camera so dragging it doesn't orbit the room.
   openPanelRef.current = () => {
     if (controlsRef.current) controlsRef.current.enabled = false;
     setBookOpen(false);
+    setCodeResult(null);
     setPanelOpen(true);
   };
   openBookRef.current = () => {
     if (controlsRef.current) controlsRef.current.enabled = false;
     setPanelOpen(false);
+    setCodeResult(null);
     setBookOpen(true);
   };
 
   // Keep the ref, camera lock, and Escape-to-close behavior in sync with the overlay.
   useEffect(() => {
-    const overlayOpen = panelOpen || bookOpen;
+    const overlayOpen = panelOpen || bookOpen || codeResult !== null;
     overlayOpenRef.current = overlayOpen;
     if (controlsRef.current) controlsRef.current.enabled = !overlayOpen;
     if (!overlayOpen) return;
     if (bookOpen) bookCloseRef.current?.focus();
+    else if (codeResult) resultCloseRef.current?.focus();
     else {
       const firstSlot = slotRefs.current[0]?.[0];
       if (firstSlot) firstSlot.focus();
@@ -157,10 +178,11 @@ function EscapeRoom() {
       if (e.key !== 'Escape') return;
       setPanelOpen(false);
       setBookOpen(false);
+      setCodeResult(null);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [panelOpen, bookOpen]);
+  }, [panelOpen, bookOpen, codeResult]);
 
   // Build the Three.js scene once. Everything created here is disposed on unmount.
   useEffect(() => {
@@ -311,25 +333,26 @@ function EscapeRoom() {
     }
 
     // One row of books per open bay. Width is along Z so the spines face into the room.
+    // Spines stay clear of the lamp red, yellow, and blue so they are not read as the code 2 hint.
     const bookRows = [
       [
-        { h: 0.58, w: 0.08, color: 0xff1a1a },
-        { h: 0.62, w: 0.1, color: 0xf2d895 },
-        { h: 0.54, w: 0.07, color: 0x1a6aff },
+        { h: 0.58, w: 0.08, color: 0x6b5278 },
+        { h: 0.62, w: 0.1, color: 0x7d6a52 },
+        { h: 0.54, w: 0.07, color: 0x3e6a64 },
         { h: 0.6, w: 0.09, color: 0x3d4a3a },
         { h: 0.5, w: 0.06, color: 0x6a7a62 },
         { h: 0.57, w: 0.11, color: 0x8a4a3a },
       ],
       [
         { h: 0.48, w: 0.07, color: 0x6a7a62 },
-        { h: 0.56, w: 0.12, color: 0xf2d895 },
-        { h: 0.52, w: 0.08, color: 0x1a6aff },
+        { h: 0.56, w: 0.12, color: 0x6e5b4a },
+        { h: 0.52, w: 0.08, color: 0x4a7568 },
         { h: 0.44, w: 0.06, color: 0x8a9a78 },
       ],
       [
-        { h: 0.5, w: 0.09, color: 0xff1a1a },
+        { h: 0.5, w: 0.09, color: 0x5c4a66 },
         { h: 0.46, w: 0.07, color: 0x3d4a3a },
-        { h: 0.55, w: 0.1, color: 0xf2d895 },
+        { h: 0.55, w: 0.1, color: 0x8d7b68 },
       ],
     ];
     const bookX = -ROOM_W / 2 + baseT + 0.02 + 0.11;
@@ -759,9 +782,7 @@ function EscapeRoom() {
         </Title>
         <p className="escape-room-caption">
           Left click to look around. Right click to move left and right. Scroll
-          to zoom. Click the hanging light to cycle its color. Wall numbers
-          only show under matching light. Click the open book on the middle
-          shelf to read it. Click the door panel to enter codes.
+          to zoom.
         </p>
       </header>
       <div className="escape-room-stage" ref={rootRef}>
@@ -938,6 +959,45 @@ function EscapeRoom() {
                   </div>
                 ))}
               </div>
+              <button
+                type="button"
+                className="escape-room-panel-submit"
+                onClick={() => {
+                  setPanelOpen(false);
+                  setCodeResult(codesAreCorrect(codes) ? 'escaped' : 'incorrect');
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        )}
+        {codeResult && (
+          <div
+            className="escape-room-panel-overlay"
+            onClick={() => setCodeResult(null)}
+          >
+            <div
+              className="escape-room-result"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="escape-room-result-message"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                ref={resultCloseRef}
+                type="button"
+                className="escape-room-panel-close"
+                aria-label="Close"
+                onClick={() => setCodeResult(null)}
+              >
+                ×
+              </button>
+              <p id="escape-room-result-message">
+                {codeResult === 'escaped'
+                  ? 'You have escaped!'
+                  : 'At least one of your codes is incorrect.'}
+              </p>
             </div>
           </div>
         )}
@@ -964,8 +1024,7 @@ function EscapeRoom() {
               </button>
               <p>
                 Most of the page has faded to a list of names and dates. The
-                last line is still dark, and the only letters left on it are{' '}
-                <span className="escape-room-book-code">{BOOK_CODE}</span>.
+                last line is still dark, and the only letters left on it are key.
               </p>
             </div>
           </div>
