@@ -30,9 +30,9 @@ const PANEL_T = 0.045;
 const CODE_COUNT = 3;
 const SLOT_COUNT = 3;
 const CORRECT_CODES = [
-  ['1', '1', '1'],
-  ['1', '1', '1'],
-  ['1', '1', '1'],
+  ['3', '5', '4'],
+  ['4', '7', '1'],
+  ['V', 'X', 'R'],
 ];
 
 function blankCodes() {
@@ -55,9 +55,9 @@ function codesAreCorrect(entered: string[][]) {
 
 // Three numbers painted on the back wall. Each one only appears under its lamp color.
 const WALL_DIGITS = [
-  { digit: '1', tint: 0xff3b3b, x: -2.15, lamp: LAMP_RED },
-  { digit: '2', tint: 0xf5d78a, x: 0, lamp: LAMP_YELLOW },
-  { digit: '3', tint: 0x4a8cff, x: 2.15, lamp: LAMP_BLUE },
+  { digit: '4', tint: 0xff3b3b, x: -2.15, lamp: LAMP_RED },
+  { digit: '1', tint: 0xf5d78a, x: 0, lamp: LAMP_YELLOW },
+  { digit: '7', tint: 0x4a8cff, x: 2.15, lamp: LAMP_BLUE },
 ] as const;
 
 // Draw a digit onto a canvas and turn it into a transparent plane that sits on the back wall.
@@ -481,11 +481,23 @@ function EscapeRoom() {
       new THREE.MeshStandardMaterial({ color: 0x6a8f5a, roughness: 0.8, metalness: 0.02 }),
       new THREE.MeshStandardMaterial({ color: 0x3d4a3a, roughness: 0.85, metalness: 0.02 }),
     ];
-    const plants = [
-      { z: -0.72, potH: 0.18, potR: 0.13, leafH: 0.55, leafR: 0.2, leaf: 0 },
-      { z: 0, potH: 0.16, potR: 0.12, leafH: 0.4, leafR: 0.18, leaf: 1 },
-      { z: 0.72, potH: 0.2, potR: 0.14, leafH: 0.62, leafR: 0.22, leaf: 2 },
-    ];
+    const plantSizes = {
+      medium: { potH: 0.18, potR: 0.13, leafH: 0.60, leafR: 0.19, leaf: 0 },
+      large: { potH: 0.22, potR: 0.16, leafH: 0.92, leafR: 0.3, leaf: 2 },
+      small: { potH: 0.16, potR: 0.12, leafH: 0.4, leafR: 0.18, leaf: 1 },
+    };
+    const plantSizeOrder = [
+      ...Array(3).fill('medium'),
+      ...Array(5).fill('large'),
+      ...Array(4).fill('small'),
+    ] as Array<keyof typeof plantSizes>;
+    for (let i = plantSizeOrder.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const swap = plantSizeOrder[i];
+      plantSizeOrder[i] = plantSizeOrder[j];
+      plantSizeOrder[j] = swap;
+    }
+    let nextPlantSize = 0;
     const addPlantShelf = (wallSign: number, centerZ: number, shelfTop: number) => {
       const back = wallSign * shelfBack;
       const inward = -wallSign;
@@ -499,15 +511,18 @@ function EscapeRoom() {
         place(box(0.22, 0.2, 0.06, trim), back + inward * 0.14, shelfTop - shelfT - 0.1, centerZ + z);
       }
       const plantX = back + inward * 0.2;
-      for (const plant of plants) {
+      for (const z of [-0.72, 0, 0.72]) {
+        const sizeName = plantSizeOrder[nextPlantSize];
+        nextPlantSize += 1;
+        const plant = plantSizes[sizeName];
         const potGeo = new THREE.CylinderGeometry(plant.potR * 0.86, plant.potR, plant.potH, 14);
         const pot = new THREE.Mesh(potGeo, potMat);
-        pot.position.set(plantX, shelfTop + plant.potH / 2, centerZ + plant.z);
+        pot.position.set(plantX, shelfTop + plant.potH / 2, centerZ + z);
         pot.castShadow = true;
         pot.receiveShadow = true;
         const leafGeo = new THREE.ConeGeometry(plant.leafR, plant.leafH, 10);
         const leaves = new THREE.Mesh(leafGeo, leafMats[plant.leaf]);
-        leaves.position.set(plantX, shelfTop + plant.potH + plant.leafH / 2 - 0.03, centerZ + plant.z);
+        leaves.position.set(plantX, shelfTop + plant.potH + plant.leafH / 2 - 0.03, centerZ + z);
         leaves.castShadow = true;
         leaves.receiveShadow = true;
         scene.add(pot, leaves);
@@ -1023,8 +1038,8 @@ function EscapeRoom() {
                 ×
               </button>
               <p>
-                Most of the page has faded to a list of names and dates. The
-                last line is still dark, and the only letters left on it are key.
+                i've always loved escape rooms. they're one of my faVorite activities. there is something just so eXciting about trying to solve 
+                the different puzzles, putting the clues together, working as a team all while undeR the pressure of a ticking clock.
               </p>
             </div>
           </div>
