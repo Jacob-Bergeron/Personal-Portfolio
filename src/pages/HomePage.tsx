@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import SkyImage from '../components/SkyImage';
 import BlackHole from '../components/BlackHole.tsx';
 import GameOfLife from '../components/GameOfLife';
+import EscapeRoom from '../components/EscapeRoom';
 
 function HomePage() {
   const { hash } = useLocation();
@@ -24,8 +25,9 @@ function HomePage() {
       <About />
       <SkyImage />
       <Experience />
-      <GameOfLife />
+      <EscapeRoom />
       <ProjectSection />
+      <GameOfLife />
       <Footer />
       <BlackHole />
     </>

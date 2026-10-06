@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
-import EscapeRoomPage from './pages/EscapeRoomPage';
 
 import "./styles/Global.css";
 import "./App.css"
@@ -25,9 +24,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/escape-room" element={<EscapeRoomPage />} />
-        <Route path="/3d-room" element={<Navigate to="/escape-room" replace />} />
-        <Route path="/icosahedron" element={<Navigate to="/escape-room" replace />} />
+        <Route path="/escape-room" element={<Navigate to="/#escape-room" replace />} />
+        <Route path="/3d-room" element={<Navigate to="/#escape-room" replace />} />
+        <Route path="/icosahedron" element={<Navigate to="/#escape-room" replace />} />
       </Routes>
     </MantineProvider>
   );

@@ -483,7 +483,7 @@ function EscapeRoom() {
     ];
     const plantSizes = {
       medium: { potH: 0.18, potR: 0.13, leafH: 0.60, leafR: 0.19, leaf: 0 },
-      large: { potH: 0.22, potR: 0.16, leafH: 0.92, leafR: 0.3, leaf: 2 },
+      large: { potH: 0.22, potR: 0.16, leafH: 0.80, leafR: 0.3, leaf: 2 },
       small: { potH: 0.16, potR: 0.12, leafH: 0.4, leafR: 0.18, leaf: 1 },
     };
     const plantSizeOrder = [
@@ -790,14 +790,14 @@ function EscapeRoom() {
   }, []);
 
   return (
-    <div className="escape-room-wrap">
+    <div id="escape-room" className="escape-room-wrap" data-aos="fade-up">
       <header className="escape-room-header">
         <Title order={3} className="escape-room-title">
           Escape Room
         </Title>
         <p className="escape-room-caption">
           Left click to look around. Right click to move left and right. Scroll
-          to zoom.
+          to zoom. Hint: try interacting with different objects in the room.
         </p>
       </header>
       <div className="escape-room-stage" ref={rootRef}>
@@ -1039,7 +1039,7 @@ function EscapeRoom() {
               </button>
               <p>
                 i've always loved escape rooms. they're one of my faVorite activities. there is something just so eXciting about trying to solve 
-                the different puzzles, putting the clues together, working as a team all while undeR the pressure of a ticking clock.
+                 different puzzles, putting clues together, working as a team all while undeR the pressure of a ticking clock.
               </p>
             </div>
           </div>

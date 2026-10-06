@@ -1,14 +1,7 @@
-.escape-room-page {
-  padding-top: calc(var(--header-height) + 3rem);
-  padding-bottom: 4rem;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
 .escape-room-wrap {
   width: 100%;
   max-width: min(100%, 864px);
-  margin: 0 auto;
+  margin: 2rem auto 0;
   padding: 0 1.25rem;
 }
 
