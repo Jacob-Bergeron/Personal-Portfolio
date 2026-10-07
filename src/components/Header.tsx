@@ -1,5 +1,4 @@
 import { Box, Flex, Text, Button } from '@mantine/core';
-import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 
 const CONTACT_EMAIL =
@@ -11,17 +10,17 @@ const Header = () => (
   <Box className='header-section'>
 
     <Flex justify="start" align="center" style={{ paddingLeft: '2rem', paddingRight: '2rem' }}>
-      <Text fw={700} component={Link} to="/" className="header-home">
+      <Text fw={700} component="a" href={import.meta.env.BASE_URL} className="header-home">
         JB
       </Text>
 
       <Flex justify="" align="center" gap="lg" ml="auto" wrap="wrap">
-        <Link to="/#experience">
+        <a href="#experience">
           <Button className='header-button'>Experience</Button>
-        </Link>
-        <Link to="/#project-section">
+        </a>
+        <a href="#project-section">
           <Button className='header-button'>Projects</Button>
-        </Link>
+        </a>
         <a href="https://github.com/jacob-bergeron" target="_blank" rel="noopener noreferrer">
           <Button className='header-button'>Github</Button>
         </a>

@@ -35,6 +35,9 @@ const CORRECT_CODES = [
   ['V', 'X', 'R'],
 ];
 
+
+
+
 function blankCodes() {
   return Array.from({ length: CODE_COUNT }, () => Array<string>(SLOT_COUNT).fill(''));
 }
@@ -128,6 +131,9 @@ function box(
   return { mesh, geo, mat };
 }
 
+
+
+
 function EscapeRoom() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -183,6 +189,9 @@ function EscapeRoom() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [panelOpen, bookOpen, codeResult]);
+
+
+
 
   // Build the Three.js scene once. Everything created here is disposed on unmount.
   useEffect(() => {
@@ -788,6 +797,9 @@ function EscapeRoom() {
       renderer.dispose();
     };
   }, []);
+
+
+
 
   return (
     <div id="escape-room" className="escape-room-wrap" data-aos="fade-up">
